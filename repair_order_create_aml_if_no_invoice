@@ -1,0 +1,36 @@
+journal_id = 14
+je = env['account.move']
+ji = env['account.move.line']
+
+
+#go in the product list
+if record.operations:
+  product_id = record.operations[0].product_id
+#find accounts
+  account_debit = product_id.categ_id.property_account_expense_categ_id.id
+  account_credit = product_id.categ_id.property_stock_account_output_categ_id.id
+  name = record.name
+  amount = record.amount_untaxed
+  
+
+#create journal entry
+  am = je.create({
+    'name':name,
+    'ref':name,
+    'journal_id':journal_id,
+    'line_ids':
+            [
+            (5, 0, 0),
+            (0,0, {
+              'name':name,
+              'debit': amount,
+              'credit': 0,
+              'account_id':account_debit,
+            }),
+            (0,0, {
+              'name':name,
+              'debit': 0,
+              'credit': amount,
+              'account_id':account_credit,
+            })] ,
+  })
