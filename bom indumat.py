@@ -11,7 +11,7 @@ boms = bom_obj.browse(cr,uid, \
 	bom_obj.search(cr,uid,[('bom_lines','in',bom_line_ids)],context=context), \
 	context=context)
 
-# Update the availability of the parent boms
+# Update the availability of the parent bomsdazdadzzad
 for b in boms:
     avail = []
     for l in b.bom_lines:
